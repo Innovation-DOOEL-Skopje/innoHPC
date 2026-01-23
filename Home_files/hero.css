@@ -1,0 +1,386 @@
+.hero {
+   position: relative;
+   width: 100%;
+   height: 100vh;
+   min-height: 600px;
+   overflow: hidden;
+}
+
+.slider {
+   width: 100%;
+   height: 100%;
+   position: relative;
+}
+
+.slide {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   opacity: 0;
+   transition: opacity 1s ease-in-out;
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   background-attachment: fixed; /* This makes the background fixed while scrolling */
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.slide.active {
+   opacity: 1;
+   z-index: 1;
+}
+
+.hero-image {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   object-position: center;
+}
+
+.slide-text-one,
+.slide-text-two-one,
+.slide-text-two,
+.slide-text-three {
+   opacity: 0;
+   transition: opacity 0.8s ease 0.3s;
+   will-change: transform, opacity, clip-path;
+   transition: opacity 0.3s ease-out, clip-path 0.3s ease-out;
+}
+
+.slide.active .slide-text-one,
+.slide.active .slide-text-two,
+.slide.active .slide-text-three {
+   opacity: 1;
+}
+
+.slide-text-one {
+   position: absolute;
+   top: 50%;
+   left: 5%;
+   transform: translateY(calc(-50% + 30px));
+   transition: all 0.8s ease;
+   color: var(--white);
+   font-size: 3.5rem;
+   font-family: var(--font-regular);
+   font-weight: var(--font-weight-bold);
+   line-height: 1.3;
+   letter-spacing: 1px;
+   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.slide.active .slide-text-one {
+   transform: translateY(-50%);
+}
+
+.slide-text-two {
+   position: absolute;
+   bottom: 10%;
+   left: 50%;
+   transform: translateX(-50%);
+   width: auto;
+   display: flex;
+   justify-content: space-between;
+   padding: 0 10%;
+   color: var(--white);
+   font-size: 3rem;
+   gap: 200px;
+   font-family: var(--font-regular);
+   font-weight: var(--font-weight-bold);
+}
+
+.slide-text-two-one,
+.slide-text-two-two {
+   opacity: 0;
+   transform: translateX(-30px);
+   transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.slide-text-two-two {
+   transform: translateX(30px);
+}
+
+.slide.active .slide-text-two-one,
+.slide.active .slide-text-two-two {
+   opacity: 1;
+   transform: translateX(0);
+   transition-delay: 0.5s;
+}
+
+.slide-text-three {
+   position: absolute;
+   top: 50%;
+   left: 15%;
+   transform: translateY(-50%);
+   color: var(--white);
+   max-width: 900px;
+   width: 90%;
+}
+
+.slide-content-wrapper {
+   display: flex;
+   align-items: center;
+   gap: 40px;
+   width: 100%;
+}
+
+.slide-text-content {
+   flex: 4;
+   max-width: 600px;
+}
+
+.slide-qr-code {
+   flex: 1;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.slide-qr-code a {
+   display: block;
+   text-decoration: none;
+   line-height: 0;
+   position: relative;
+   z-index: 10;
+}
+
+.qr-code-image {
+   width: 220px;
+   height: 220px;
+   object-fit: contain;
+   border-radius: 12px;
+   background-color: white;
+   padding: 12px;
+   box-shadow: 0 5px 18px rgba(0, 0, 0, 0.35);
+   cursor: pointer;
+   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.slide-qr-code a:hover .qr-code-image {
+   transform: scale(1.05);
+   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.45);
+}
+
+.slide-text-three div:first-child {
+   font-size: 2rem;
+   margin-bottom: 20px;
+   font-family: var(--font-regular);
+   font-weight: var(--font-weight-bold);
+}
+
+.slide-text-three div:last-child {
+   font-size: 1.2rem;
+   line-height: 1.6;
+   font-family: var(--font-regular);
+   font-weight: var(--font-weight-regular);
+}
+
+.dots {
+   position: absolute;
+   bottom: 20px;
+   left: 50%;
+   transform: translateX(-50%);
+   display: flex;
+   z-index: 2;
+}
+
+.dot {
+   width: 12px;
+   height: 12px;
+   border-radius: 50%;
+   margin: 0 8px;
+   background-color: rgba(255, 255, 255, 0.5);
+   cursor: pointer;
+   transition: background-color 0.3s ease;
+}
+
+.dot.active {
+   background-color: white;
+}
+
+/* Add overlay background for text on mobile and medium screens */
+@media (max-width: 1200px) {
+   .slide-text-one,
+   .slide-text-two,
+   .slide-text-three {
+      background-color: var(--black-overlay);
+      padding: 20px;
+      border-radius: 10px;
+      backdrop-filter: blur(5px);
+   }
+
+   .slide-text-one {
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 800px;
+   }
+
+   .slide-text-two {
+      width: auto;
+      gap: 100px;
+   }
+
+   .slide-text-three {
+      max-width: 600px;
+      left: 10%;
+   }
+
+   .slide-content-wrapper {
+      flex-direction: column;
+      gap: 20px;
+      align-items: flex-start;
+   }
+
+   .qr-code-image {
+      width: 140px;
+      height: 140px;
+   }
+}
+
+@media (max-width: 900px) {
+   .slide-text-two {
+      gap: 50px;
+      bottom: 15%;
+   }
+   .slide-text-one {
+      font-size: 2.5rem;
+   }
+}
+
+@media (max-width: 768px) {
+   .slide {
+      height: 100vh;
+      width: 100%;
+      min-height: 600px;
+   }
+
+   .active {
+      object-position: right;
+   }
+
+   .slide-text-one {
+      font-size: 2.2rem;
+      padding: 25px;
+      width: 85%;
+      text-align: center;
+      left: 50%;
+      transform: translate(-50%, -50%);
+   }
+
+   /* Override any other transform properties for mobile */
+   .slide.active .slide-text-one {
+      transform: translate(-50%, -50%);
+   }
+
+   .slide-text-two {
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      font-size: 2.2rem;
+      padding: 20px;
+      width: 85%;
+      margin: 0 auto;
+      bottom: 20%;
+   }
+
+   .slide-text-three {
+      width: 85%;
+      padding: 15px;
+      left: 50%;
+      top: 48%;
+      transform: translate(-50%, -50%);
+      max-height: calc(100vh - 180px);
+      overflow-y: auto;
+      margin-top: 30px;
+      margin-bottom: 40px;
+   }
+
+   .slide-content-wrapper {
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+      text-align: center;
+      max-height: calc(100vh - 220px);
+      overflow-y: auto;
+   }
+
+   .slide-text-content {
+      margin-bottom: 15px;
+   }
+
+   .qr-code-image {
+      width: 120px;
+      height: 120px;
+   }
+}
+
+@media (max-width: 480px) {
+   .hero {
+      min-height: 550px;
+   }
+
+   .slide-text-one {
+      font-size: 1.8rem;
+      padding: 20px;
+      line-height: 1.4;
+   }
+
+   .slide-text-two {
+      font-size: 2rem;
+      bottom: 7%;
+   }
+
+   .slide-text-three {
+      padding: 12px;
+      max-height: calc(100vh - 170px);
+      margin-top: 40px;
+      margin-bottom: 50px;
+   }
+
+   .slide-content-wrapper {
+      gap: 12px;
+      max-height: calc(100vh - 210px);
+   }
+
+   .slide-text-three div:first-child {
+      font-size: 1.65rem;
+      margin-bottom: 1rem;
+   }
+
+   .slide-text-three div:last-child {
+      font-size: 1rem;
+   }
+
+   .qr-code-image {
+      width: 100px;
+      height: 100px;
+   }
+}
+
+@media (max-width: 360px) {
+   .slide-text-one {
+      font-size: 1.3rem;
+   }
+}
+
+.slide:nth-child(1)::before,
+.slide:nth-child(2)::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: var(--black-overlay);
+   z-index: 1;
+}
+
+.slide-text-one,
+.slide-text-two,
+.slide-text-three {
+   z-index: 2;
+}

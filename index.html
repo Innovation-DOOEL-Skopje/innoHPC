@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InnoHPC</title>
+
+    <link rel="icon" type="image/png" href="https://www.ecgalert.com/assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="https://www.ecgalert.com/assets/images/favicon.png">
+
+    <link rel="stylesheet" href="./Home_files/global.css">
+    <link rel="stylesheet" href="./Home_files/navbar.css">
+    <link rel="stylesheet" href="./Home_files/footer.css">
+    <link rel="stylesheet" href="./Software_files/software.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="./Home_files/css2" rel="stylesheet">
+
+    <style>
+        :root {
+            --innohpc-hero-panel-gap: 30px;
+        }
+
+        .innohpc-hero-wrap {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 26px;
+            align-items: center;
+        }
+
+        .innohpc-hero-visual {
+            position: relative;
+            width: 100%;
+            min-height: 320px;
+            border-radius: 22px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.14);
+            background:
+                radial-gradient(1200px 400px at 20% 20%, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0) 60%),
+                radial-gradient(900px 340px at 80% 70%, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0) 55%),
+                linear-gradient(180deg, rgba(6, 12, 25, 0.35), rgba(6, 12, 25, 0.10));
+            box-shadow: 0 26px 80px rgba(0, 0, 0, 0.25);
+        }
+
+        .innohpc-hero-visual::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            background:
+                linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+            background-size: 34px 34px;
+            opacity: 0.35;
+            transform: translateZ(0);
+            animation: gridFloat 10s linear infinite;
+        }
+
+        @keyframes gridFloat {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-34px, -34px, 0); }
+        }
+
+        .hero-content {
+            max-width: none;
+        }
+
+        /* Page-specific override: ensure the footer logo is clearly visible */
+        .footer-logo-image {
+            height: 72px;
+            width: auto;
+            max-width: min(340px, 80vw);
+            filter: none;
+            display: block;
+            margin: 0 auto;
+            object-fit: contain;
+        }
+
+        .innohpc-hero-note {
+            margin-top: 18px;
+            max-width: 70ch;
+            opacity: 0.95;
+        }
+
+        .innohpc-section {
+            background-color: var(--background-color);
+            padding: 90px 40px;
+            width: 100%;
+        }
+
+        .innohpc-section-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .innohpc-section h2 {
+            color: var(--primary-color);
+            font-size: 2.4rem;
+            line-height: 1.15;
+            margin-bottom: 16px;
+            font-weight: var(--font-weight-bold);
+        }
+
+        .innohpc-lead {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            line-height: 1.7;
+            max-width: 90ch;
+            margin-bottom: 26px;
+        }
+
+        .innohpc-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 18px;
+        }
+
+        .innohpc-card {
+            grid-column: span 6;
+            background: #fff;
+            border-radius: 18px;
+            padding: 22px;
+            border: 2px solid rgba(31, 43, 84, 0.10);
+            box-shadow: 0 12px 24px rgba(31, 43, 84, 0.10);
+            transition: transform 0.12s ease, box-shadow 0.12s ease;
+        }
+
+        .innohpc-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 30px rgba(31, 43, 84, 0.14);
+        }
+
+        .innohpc-card h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            line-height: 1.2;
+            margin-bottom: 10px;
+            font-weight: var(--font-weight-bold);
+        }
+
+        .innohpc-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 10px;
+        }
+
+        .innohpc-card-header h3 {
+            margin-bottom: 0;
+        }
+
+        .innohpc-card-logos {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .innohpc-card-logos .innohpc-logo {
+            width: 78px;
+            height: 78px;
+            padding: 10px;
+        }
+
+        .innohpc-logo {
+            width: 92px;
+            height: 92px;
+            object-fit: contain;
+            border-radius: 14px;
+            background: rgba(31, 43, 84, 0.05);
+            border: 1px solid rgba(31, 43, 84, 0.10);
+            padding: 12px;
+            flex: 0 0 auto;
+        }
+
+        .innohpc-logo--wide {
+            width: 132px;
+        }
+
+        .innohpc-card p {
+            color: rgba(31, 43, 84, 0.92);
+            font-size: 1.05rem;
+            line-height: 1.65;
+        }
+
+        .innohpc-meta {
+            margin-top: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 10px;
+            border-radius: 999px;
+            background: rgba(43, 63, 129, 0.10);
+            color: var(--secondary-color);
+            font-weight: var(--font-weight-medium);
+            font-size: 0.95rem;
+        }
+
+        .innohpc-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: var(--secondary-color);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: var(--font-weight-bold);
+        }
+
+        .innohpc-link:hover {
+            opacity: 0.92;
+        }
+
+        .innohpc-card--wide {
+            grid-column: span 12;
+        }
+
+        .innohpc-two-col {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 26px;
+            align-items: center;
+        }
+
+        .innohpc-figure {
+            width: 100%;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 2px solid rgba(31, 43, 84, 0.10);
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .innohpc-figure img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Animated server rack */
+        .server-rack {
+            position: absolute;
+            left: 18px;
+            top: 20px;
+            bottom: 20px;
+            right: calc(50% + (var(--innohpc-hero-panel-gap) / 2));
+            width: auto;
+            min-width: 220px;
+            max-width: 360px;
+            border-radius: 18px;
+            padding: 16px 14px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06));
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(10px);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+        }
+
+        .server-rack-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .server-rack-title {
+            color: rgba(255, 255, 255, 0.92);
+            font-weight: var(--font-weight-bold);
+            letter-spacing: 0.4px;
+            font-size: 0.95rem;
+        }
+
+        .server-rack-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            color: rgba(255, 255, 255, 0.92);
+            font-size: 0.85rem;
+        }
+
+        .server-rack-badge i {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #37e37b;
+            box-shadow: 0 0 0 0 rgba(55, 227, 123, 0.0);
+            animation: onlinePulse 1.6s ease-in-out infinite;
+        }
+
+        @keyframes onlinePulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(55, 227, 123, 0.0); opacity: 1; }
+            50% { box-shadow: 0 0 0 10px rgba(55, 227, 123, 0.08); opacity: 0.95; }
+        }
+
+        .server-unit {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+            align-items: center;
+            padding: 10px 10px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            margin-bottom: 10px;
+        }
+
+        .server-unit:last-child { margin-bottom: 0; }
+
+        .server-bars {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .bar {
+            width: 10px;
+            height: 8px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.25);
+            opacity: 0.7;
+        }
+
+        .bar:nth-child(1) { animation: barBlink 1.7s ease-in-out infinite; }
+        .bar:nth-child(2) { animation: barBlink 1.7s ease-in-out infinite 0.18s; }
+        .bar:nth-child(3) { animation: barBlink 1.7s ease-in-out infinite 0.36s; }
+        .bar:nth-child(4) { animation: barBlink 1.7s ease-in-out infinite 0.54s; }
+        .bar:nth-child(5) { animation: barBlink 1.7s ease-in-out infinite 0.72s; }
+
+        @keyframes barBlink {
+            0%, 100% { background: rgba(255, 255, 255, 0.22); opacity: 0.55; }
+            40% { background: rgba(0, 245, 255, 0.55); opacity: 1; }
+            70% { background: rgba(55, 227, 123, 0.55); opacity: 0.95; }
+        }
+
+        .server-lights {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .led {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.22);
+        }
+
+        .led.green { background: rgba(55, 227, 123, 0.65); box-shadow: 0 0 18px rgba(55, 227, 123, 0.22); animation: ledFlicker 1.2s steps(2) infinite; }
+        .led.cyan { background: rgba(0, 245, 255, 0.65); box-shadow: 0 0 18px rgba(0, 245, 255, 0.22); animation: ledFlicker 1.5s steps(2) infinite 0.2s; }
+        .led.amber { background: rgba(255, 176, 0, 0.65); box-shadow: 0 0 18px rgba(255, 176, 0, 0.22); animation: ledFlicker 2.1s steps(2) infinite 0.35s; }
+
+        @keyframes ledFlicker {
+            0%, 100% { opacity: 0.55; filter: saturate(0.9); }
+            50% { opacity: 1; filter: saturate(1.25); }
+        }
+
+        .server-glow {
+            position: absolute;
+            inset: -40px;
+            background: radial-gradient(520px 260px at 20% 35%, rgba(0, 245, 255, 0.16), rgba(0, 245, 255, 0) 70%);
+            pointer-events: none;
+            animation: glowDrift 6s ease-in-out infinite;
+        }
+
+        @keyframes glowDrift {
+            0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.85; }
+            50% { transform: translate3d(10px, -8px, 0); opacity: 1; }
+        }
+
+        /* ECG waveform */
+        .ecg-panel {
+            position: absolute;
+            left: calc(50% + (var(--innohpc-hero-panel-gap) / 2));
+            right: 18px;
+            top: 20px;
+            bottom: 20px;
+            width: auto;
+            min-width: 240px;
+            border-radius: 18px;
+            padding: 18px;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.08));
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            backdrop-filter: blur(10px);
+        }
+
+        .ecg-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.92);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .ecg-rate {
+            font-weight: var(--font-weight-medium);
+            opacity: 0.9;
+        }
+
+        .ecg-svg {
+            width: 100%;
+            height: calc(100% - 40px);
+            display: block;
+        }
+
+        .ecg-path {
+            fill: none;
+            stroke: rgba(55, 227, 123, 0.95);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            filter: drop-shadow(0 0 10px rgba(55, 227, 123, 0.35));
+            stroke-dasharray: 520;
+            stroke-dashoffset: 520;
+            animation: ecgDraw 1.35s linear infinite;
+        }
+
+        .ecg-baseline {
+            stroke: rgba(255, 255, 255, 0.20);
+            stroke-width: 1.5;
+        }
+
+        .ecg-scan {
+            position: absolute;
+            inset: 54px 18px 18px 18px;
+            border-radius: 14px;
+            pointer-events: none;
+            background: linear-gradient(90deg, rgba(55, 227, 123, 0), rgba(55, 227, 123, 0.15), rgba(55, 227, 123, 0));
+            mix-blend-mode: screen;
+            transform: translateX(-120%);
+            animation: scanMove 1.35s linear infinite;
+            opacity: 0.65;
+        }
+
+        @keyframes scanMove {
+            0% { transform: translateX(-120%); }
+            100% { transform: translateX(120%); }
+        }
+
+        @keyframes ecgDraw {
+            0% { stroke-dashoffset: 520; opacity: 0.35; }
+            15% { opacity: 1; }
+            100% { stroke-dashoffset: 0; opacity: 0.9; }
+        }
+
+        @media (max-width: 980px) {
+            .innohpc-hero-wrap {
+                grid-template-columns: 1fr;
+                padding: 0 20px;
+            }
+            .innohpc-hero-visual {
+                min-height: 260px;
+            }
+            :root { --innohpc-hero-panel-gap: 20px; }
+            .server-rack { min-width: 190px; }
+            .ecg-panel { min-width: 210px; }
+        }
+
+        @media (max-width: 900px) {
+            .innohpc-card { grid-column: span 12; }
+            .innohpc-two-col { grid-template-columns: 1fr; }
+            .innohpc-section { padding: 70px 20px; }
+        }
+
+        @media (max-width: 720px) {
+            .innohpc-hero-visual { display: none; }
+        }
+</style>
+</head>
+
+<body>
+    <!-- Navbar (same structure as Home/Software) -->
+
+    <nav class="navbar scrolled" style="top: 0px; transform: translateY(0px);">
+        <a href="./Home.html" class="logo">
+            <img src="./images/innohpc_logo_bg.png" alt="InnoHPC logo" class="logo-image">
+        </a>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+        </ul>
+        <div class="hamburger">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </nav>
+
+    <!-- Hero (reuse Software page hero styling) -->
+    <section class="software-hero">
+        <div class="innohpc-hero-wrap">
+            <div class="hero-content">
+                <h1>InnoHPC</h1>
+                <h2>HPC Portfolio</h2>
+                <p class="innohpc-hero-note">
+                    Innovation Dooel Skopje – portfolio of high-performance computing projects, EuroHPC access activities,
+                    and HPC support programs used to accelerate R&amp;D in scalable AI systems.
+                </p>
+            </div>
+
+            <div class="innohpc-hero-visual" aria-label="Animated HPC server and ECG signal">
+                <div class="server-glow"></div>
+
+                <div class="server-rack" aria-label="HPC server rack">
+                    <div class="server-rack-header">
+                        <div class="server-rack-title">HPC Cluster</div>
+                        <div class="server-rack-badge"><i></i> Online</div>
+                    </div>
+
+                    <div class="server-unit">
+                        <div class="server-bars" aria-hidden="true">
+                            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                        </div>
+                        <div class="server-lights" aria-hidden="true">
+                            <span class="led cyan"></span><span class="led green"></span><span class="led amber"></span>
+                        </div>
+                    </div>
+
+                    <div class="server-unit">
+                        <div class="server-bars" aria-hidden="true">
+                            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                        </div>
+                        <div class="server-lights" aria-hidden="true">
+                            <span class="led green"></span><span class="led cyan"></span><span class="led green"></span>
+                        </div>
+                    </div>
+
+                    <div class="server-unit">
+                        <div class="server-bars" aria-hidden="true">
+                            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                        </div>
+                        <div class="server-lights" aria-hidden="true">
+                            <span class="led amber"></span><span class="led green"></span><span class="led cyan"></span>
+                        </div>
+                    </div>
+
+                    <div class="server-unit">
+                        <div class="server-bars" aria-hidden="true">
+                            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                        </div>
+                        <div class="server-lights" aria-hidden="true">
+                            <span class="led cyan"></span><span class="led amber"></span><span class="led green"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ecg-panel" aria-label="ECG signal">
+                    <div class="ecg-title">
+                        <span>ECG Monitor</span>
+                        <span class="ecg-rate"><span id="ecgBpm">72</span> bpm</span>
+                    </div>
+
+                    <div class="ecg-scan" aria-hidden="true"></div>
+
+                    <svg class="ecg-svg" viewBox="0 0 600 200" preserveAspectRatio="none" role="img" aria-label="Animated ECG waveform">
+                        <line class="ecg-baseline" x1="0" y1="120" x2="600" y2="120"></line>
+                        <path class="ecg-path" d="M0,120 L60,120 L82,120 L95,80 L105,160 L120,120 L160,120 L190,120 L210,95 L220,120 L245,120 L270,120 L290,120 L315,75 L330,165 L345,120 L390,120 L420,120 L450,105 L462,120 L500,120 L540,120 L600,120" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio content (same information as originally listed in body) -->
+    <section class="innohpc-section">
+        <div class="innohpc-section-inner">
+            <h2>Projects and platforms</h2>
+            <p class="innohpc-lead">
+                A curated overview of Innovation Dooel Skopje’s HPC-related projects and public resources.
+            </p>
+
+            <div class="innohpc-grid">
+                <article class="innohpc-card">
+                    <div class="innohpc-card-header">
+                        <h3>AI Cardiologist</h3>
+                        <div class="innohpc-card-logos" aria-label="AI Cardiologist logos">
+                            <img class="innohpc-logo" src="./images/aicardiologist_logo.png" alt="AI Cardiologist logo">
+                            <img class="innohpc-logo" src="./images/elise_ai_cardiologist_logo.png" alt="ELISE AI Cardiologist logo">
+                        </div>
+                    </div>
+                    <p>
+                        Clinical AI and research platform focused on automated ECG analysis and AI-assisted workflows.
+                    </p>
+                    <div class="innohpc-meta">
+                        <span class="badge">Platform</span>
+                        <a class="innohpc-link" href="https://aicardiologist.innovation.com.mk/" target="_blank" rel="noopener noreferrer">Visit</a>
+                    </div>
+                </article>
+
+                <article class="innohpc-card">
+                    <div class="innohpc-card-header">
+                        <h3>CardioHPC</h3>
+                        <div class="innohpc-card-logos" aria-label="CardioHPC logos">
+                            <img class="innohpc-logo" src="./images/CardioHPC_logo.png" alt="CardioHPC logo">
+                            <img class="innohpc-logo" src="./images/ff4_logo.png" alt="FF4 logo">
+                        </div>
+                    </div>
+                    <p>
+                        R&amp;D initiative leveraging high-performance computing and scalable distributed AI to accelerate
+                        training and optimization of deep learning models on supercomputing infrastructures.
+                    </p>
+                    <div class="innohpc-meta">
+                        <span class="badge">HPC R&amp;D</span>
+                        <a class="innohpc-link" href="http://cardiohpc.innovation.com.mk/" target="_blank" rel="noopener noreferrer">Visit</a>
+                    </div>
+                </article>
+
+                <article class="innohpc-card innohpc-card--wide">
+                    <div class="innohpc-two-col">
+                        <div>
+                            <div class="innohpc-card-header" style="margin-bottom: 12px;">
+                                <h3>Heart Language Model (HLM) – Documentation</h3>
+                                <img class="innohpc-logo innohpc-logo--wide" src="./images/eurohpc_logo.svg" alt="EuroHPC logo">
+                            </div>
+                            <p>
+                                Public documentation hub for HLM-related work, experiments, and artifacts.
+                            </p>
+                            <div class="innohpc-meta">
+                                <span class="badge">Docs</span>
+                                <a class="innohpc-link" href="https://docs-hlm-470618073656.europe-west1.run.app/" target="_blank" rel="noopener noreferrer">Open docs</a>
+                            </div>
+                        </div>
+                        <figure class="innohpc-figure" aria-label="HPC visual">
+                            <img src="./Software_files/Scaling.gif" alt="Scaling visualization">
+                        </figure>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="innohpc-section" style="background-color: var(--secondary-color);">
+        <div class="innohpc-section-inner">
+            <h2 style="color: var(--white);">EuroHPC access calls and systems</h2>
+            <p class="innohpc-lead" style="color: rgba(255,255,255,0.92);">
+                Access activities and the EuroHPC systems used for benchmarking, development, and large-scale experimentation.
+            </p>
+
+            <div class="innohpc-grid">
+                <article class="innohpc-card">
+                    <div class="innohpc-card-header">
+                        <h3>Benchmark Access Call</h3>
+                        <img class="innohpc-logo" src="./images/meluxina_logo.png" alt="EuroHPC logo">
+                    </div>
+                    <p>Benchmarking and capability validation runs executed via EuroHPC access mechanisms.</p>
+                    <div class="innohpc-meta">
+                        <span class="badge">EuroHPC</span>
+                        <span class="badge">System: MeluXina</span>
+                    </div>
+                </article>
+
+                <article class="innohpc-card">
+                    <div class="innohpc-card-header">
+                        <h3>Development Access Call</h3>
+                        <img class="innohpc-logo" src="./images/meluxina_logo.png" alt="MeluXina logo">
+                    </div>
+                    <p>Development-focused access for iterative engineering, scaling experiments, and performance improvement.</p>
+                    <div class="innohpc-meta">
+                        <span class="badge">EuroHPC</span>
+                        <span class="badge">System: MeluXina</span>
+                    </div>
+                </article>
+
+                <article class="innohpc-card innohpc-card--wide">
+                    <div class="innohpc-card-header">
+                        <h3>Development Access Call</h3>
+                        <img class="innohpc-logo" src="./images/marenostrum5_logo.png" alt="MareNostrum 5 logo">
+                    </div>
+                    <p>Development access activity executed on <strong>MareNostrum 5 (MN5)</strong>.</p>
+                    <div class="innohpc-meta">
+                        <span class="badge">EuroHPC</span>
+                        <span class="badge">System: MareNostrum 5 (MN5)</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="innohpc-section">
+        <div class="innohpc-section-inner">
+            <h2>HPC support programs and ecosystem</h2>
+            <p class="innohpc-lead">
+                Performance engineering and dedicated support programs that accelerate delivery, optimization, and scalability.
+            </p>
+
+            <div class="innohpc-grid">
+                <article class="innohpc-card">
+                    <div class="innohpc-card-header">
+                        <h3>EPICURE Support</h3>
+                        <img class="innohpc-logo" src="./images/epicure_logo.svg" alt="EPICURE logo">
+                    </div>
+                    <p>
+                        Project support page: “Developing a Heart Language Foundation Model”.
+                    </p>
+                    <div class="innohpc-meta">
+                        <span class="badge">HPC Support</span>
+                        <a class="innohpc-link" href="https://eurohpcsupport.eu/supported-project/developing-a-heart-language-foundation-model/" target="_blank" rel="noopener noreferrer">Open</a>
+                    </div>
+                </article>
+
+                <article class="innohpc-card">
+                    <div class="innohpc-card-header">
+                        <h3>POP3</h3>
+                        <img class="innohpc-logo" src="./images/pop_logo.png" alt="POP3 logo">
+                    </div>
+                    <p>
+                        Performance analysis and assessment ecosystem for improving parallel applications.
+                    </p>
+                    <div class="innohpc-meta">
+                        <span class="badge">Performance</span>
+                        <span class="badge">Assessment</span>
+                    </div>
+                </article>
+
+                <article class="innohpc-card">
+                    <div class="innohpc-card-header">
+                        <h3>MINERVA</h3>
+                        <img class="innohpc-logo" src="./images/minerva_logo.webp" alt="MINERVA logo">
+                    </div>
+                    <p>
+                        AI-HPC support services enabling better integration, validation, and scaling of AI workloads on HPC.
+                    </p>
+                    <div class="innohpc-meta">
+                        <span class="badge">AI-HPC</span>
+                        <span class="badge">Support</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (same as Home/Software) -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="./images/innohpc_logo_bg.png" alt="InnoHPC logo" class="footer-logo-image">
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>@INNOVATION TECHNOLOGIES 2026 ALL RIGHTS RESERVED</p>
+        </div>
+    </footer>
+
+    <script src="./Home_files/main.js.download"></script>
+    <script>
+        (function () {
+            var bpmEl = document.getElementById('ecgBpm');
+            if (!bpmEl) return;
+            var base = 72;
+            var t = 0;
+            window.setInterval(function () {
+                t += 1;
+                var jitter = Math.round(Math.sin(t / 3) * 2 + (Math.random() - 0.5) * 2);
+                var bpm = Math.max(58, Math.min(88, base + jitter));
+                bpmEl.textContent = String(bpm);
+            }, 900);
+        })();
+    </script>
+</body>
+</html>
