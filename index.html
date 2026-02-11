@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InnoHPC</title>
 
-    <link rel="icon" type="image/png" href="./images/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="./images/favicon.png">
     <link rel="apple-touch-icon" href="./images/favicon.png">
+
+    <link rel="preload" as="image" href="./images/innohpc_logo_bg.png">
 
     <link rel="stylesheet" href="./Home_files/global.css">
     <link rel="stylesheet" href="./Home_files/navbar.css">
@@ -47,23 +49,32 @@
             box-shadow: 0 26px 80px rgba(0, 0, 0, 0.25);
         }
 
-        .hero-visual-state {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.6s ease;
+        /* Smooth hero animation between split and full GIF */
+        .innohpc-hero-visual .server-glow,
+        .innohpc-hero-visual .server-rack,
+        .innohpc-hero-visual .ecg-panel {
+            transition:
+                opacity 1.2s ease-in-out,
+                transform 1.2s ease-in-out,
+                left 1.2s ease-in-out,
+                right 1.2s ease-in-out;
         }
 
-        .hero-visual-state--active {
+        .innohpc-hero-visual.hero-mode--split .server-glow,
+        .innohpc-hero-visual.hero-mode--split .server-rack {
             opacity: 1;
-            pointer-events: auto;
+            transform: translateX(0);
         }
 
-        .hero-visual-state--inactive {
+        .innohpc-hero-visual.hero-mode--full .server-glow,
+        .innohpc-hero-visual.hero-mode--full .server-rack {
             opacity: 0;
-            pointer-events: none;
+            transform: translateX(-40px);
+        }
+
+        .innohpc-hero-visual.hero-mode--full .ecg-panel {
+            left: 18px;
+            right: 18px;
         }
 
         .innohpc-hero-visual img {
@@ -526,7 +537,7 @@
 
     <nav class="navbar scrolled" style="top: 0px; transform: translateY(0px);">
         <a href="./Home.html" class="logo">
-            <img src="./images/innohpc_logo_bg.png" alt="InnoHPC logo" class="logo-image">
+            <img src="./images/innohpc_logo_bg.png" alt="InnoHPC logo" class="logo-image" decoding="async" fetchpriority="high">
         </a>
         <ul class="nav-links">
             <li><a href="#">Home</a></li>
@@ -550,59 +561,53 @@
                 </p>
             </div>
 
-            <div class="innohpc-hero-visual" aria-label="ECG and HPC visualization">
-                <div class="hero-visual-state hero-visual-state--cluster hero-visual-state--active">
-                    <div class="server-glow"></div>
+            <div class="innohpc-hero-visual hero-mode--split" aria-label="ECG and HPC visualization">
+                <div class="server-glow"></div>
 
-                    <div class="server-rack" aria-label="HPC server rack">
-                        <div class="server-rack-header">
-                            <div class="server-rack-title">HPC Cluster</div>
-                            <div class="server-rack-badge"><i></i> Online</div>
+                <div class="server-rack" aria-label="HPC server rack">
+                    <div class="server-rack-header">
+                        <div class="server-rack-title">HPC Cluster</div>
+                        <div class="server-rack-badge"><i></i> Online</div>
+                    </div>
+
+                    <div class="server-unit">
+                        <div class="server-bars" aria-hidden="true">
+                            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
                         </div>
-
-                        <div class="server-unit">
-                            <div class="server-bars" aria-hidden="true">
-                                <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
-                            </div>
-                            <div class="server-lights" aria-hidden="true">
-                                <span class="led cyan"></span><span class="led green"></span><span class="led amber"></span>
-                            </div>
-                        </div>
-
-                        <div class="server-unit">
-                            <div class="server-bars" aria-hidden="true">
-                                <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
-                            </div>
-                            <div class="server-lights" aria-hidden="true">
-                                <span class="led green"></span><span class="led cyan"></span><span class="led green"></span>
-                            </div>
-                        </div>
-
-                        <div class="server-unit">
-                            <div class="server-bars" aria-hidden="true">
-                                <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
-                            </div>
-                            <div class="server-lights" aria-hidden="true">
-                                <span class="led amber"></span><span class="led green"></span><span class="led cyan"></span>
-                            </div>
-                        </div>
-
-                        <div class="server-unit">
-                            <div class="server-bars" aria-hidden="true">
-                                <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
-                            </div>
-                            <div class="server-lights" aria-hidden="true">
-                                <span class="led cyan"></span><span class="led amber"></span><span class="led green"></span>
-                            </div>
+                        <div class="server-lights" aria-hidden="true">
+                            <span class="led cyan"></span><span class="led green"></span><span class="led amber"></span>
                         </div>
                     </div>
 
-                    <div class="ecg-panel" aria-label="ECG signal">
-                        <img src="./images/Scaling.gif" alt="ECG analysis visualization">
+                    <div class="server-unit">
+                        <div class="server-bars" aria-hidden="true">
+                            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                        </div>
+                        <div class="server-lights" aria-hidden="true">
+                            <span class="led green"></span><span class="led cyan"></span><span class="led green"></span>
+                        </div>
+                    </div>
+
+                    <div class="server-unit">
+                        <div class="server-bars" aria-hidden="true">
+                            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                        </div>
+                        <div class="server-lights" aria-hidden="true">
+                            <span class="led amber"></span><span class="led green"></span><span class="led cyan"></span>
+                        </div>
+                    </div>
+
+                    <div class="server-unit">
+                        <div class="server-bars" aria-hidden="true">
+                            <span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+                        </div>
+                        <div class="server-lights" aria-hidden="true">
+                            <span class="led cyan"></span><span class="led amber"></span><span class="led green"></span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="hero-visual-state hero-visual-state--gif hero-visual-state--inactive" aria-hidden="true">
+                <div class="ecg-panel" aria-label="ECG signal">
                     <img src="./images/Scaling.gif" alt="ECG analysis visualization">
                 </div>
             </div>
@@ -778,7 +783,7 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="./images/innohpc_logo_bg.png" alt="InnoHPC logo" class="footer-logo-image">
+                <img src="./images/innohpc_logo_bg.png" alt="InnoHPC logo" class="footer-logo-image" loading="lazy" decoding="async">
             </div>
         </div>
         <div class="footer-bottom">
@@ -805,26 +810,18 @@
             var visual = document.querySelector('.innohpc-hero-visual');
             if (!visual) return;
 
-            var states = visual.querySelectorAll('.hero-visual-state');
-            if (!states || states.length < 2) return;
+            var mode = 'split';
 
-            var current = 0;
-
-            function showState(index) {
-                for (var i = 0; i < states.length; i++) {
-                    var el = states[i];
-                    var isActive = i === index;
-                    el.classList.toggle('hero-visual-state--active', isActive);
-                    el.classList.toggle('hero-visual-state--inactive', !isActive);
-                    el.setAttribute('aria-hidden', String(!isActive));
-                }
+            function applyMode(next) {
+                visual.classList.toggle('hero-mode--split', next === 'split');
+                visual.classList.toggle('hero-mode--full', next === 'full');
             }
 
-            showState(current);
+            applyMode(mode);
 
             window.setInterval(function () {
-                current = (current + 1) % states.length;
-                showState(current);
+                mode = (mode === 'split') ? 'full' : 'split';
+                applyMode(mode);
             }, 5000);
         })();
     </script>
